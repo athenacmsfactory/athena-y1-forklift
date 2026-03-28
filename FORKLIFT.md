@@ -31,8 +31,8 @@ Toont welke sites in de Kluis staan en welke momenteel in de Werkplaats aanwezig
 ./list.sh
 ```
 
-### 2. `./pull.sh <site_naam>`
-Haalt een site uit de Kluis naar de Werkplaats.
+### 2. `./pull.sh <site_name>`
+Haalt een site uit de Kluis naar de Werkplaats en **hydrateert** deze automatisch (voert `pnpm install` uit).
 ```bash
 ./pull.sh mijn-coole-site
 ```

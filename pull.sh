@@ -35,5 +35,16 @@ mkdir -p "/home/kareltestspecial/0-IT/3-DEV/y1/y/werkplaats"
 # --exclude: skip node_modules and git
 rsync -av --exclude 'node_modules' --exclude '.git' "$VAULT_PATH/" "$PLAYGROUND_PATH/"
 
+# 🚀 Hydration (Automation)
+if [ -f "$PLAYGROUND_PATH/package.json" ]; then
+    echo "📦 Hydrating '$SITE_NAME' (pnpm install)..."
+    (cd "$PLAYGROUND_PATH" && pnpm install)
+    if [ $? -eq 0 ]; then
+        echo "✅ Hydration successful."
+    else
+        echo "⚠️  Hydration failed, please run pnpm install manually in $PLAYGROUND_PATH"
+    fi
+fi
+
 echo "✅ Pull complete. Site is ready in: $PLAYGROUND_PATH"
 echo "💡 The Factory can now access this site via its internal 'sites' symlink."

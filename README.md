@@ -10,7 +10,7 @@ Forklift is a set of scripts for managing site data between the **Vault** and th
 ## Commands
 
 ### 1. Pull
-Syncs data from the Vault to the Playground.
+Syncs data from the Vault to the Playground and **automatically hydrates** the site (runs `pnpm install`).
 
 ```bash
 ./pull.sh <site_name>
