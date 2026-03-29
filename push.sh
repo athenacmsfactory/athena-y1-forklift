@@ -42,6 +42,22 @@ if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
     rsync -av --exclude 'node_modules' --exclude '.git' "$PLAYGROUND_PATH/" "$VAULT_PATH/"
     
     echo "✅ Push complete. Changes have been promoted to the Vault."
+    
+    # 🧹 Cleanup/Purge Phase
+    read -p "Do you want to purge (delete) '$SITE_NAME' from the Werkplaats? (y/N): " PURGE
+    if [[ "$PURGE" =~ ^[Yy]$ ]]; then
+        rm -rf "$PLAYGROUND_PATH"
+        echo "✅ Site '$SITE_NAME' has been purged from Werkplaats."
+        
+        # 🔄 Git Integration: Auto-stage the deletions
+        if [ -d "$PLAYGROUND_PATH/../../.git" ]; then
+             echo "🏗️  Staging deletions to Git..."
+             git add -u "$PLAYGROUND_PATH"
+             git commit -m "park: $SITE_NAME to Vault"
+        fi
+    else
+        echo "💡 Site '$SITE_NAME' remains in Werkplaats for further editing."
+    fi
 else
     echo "🚫 Push cancelled."
 fi

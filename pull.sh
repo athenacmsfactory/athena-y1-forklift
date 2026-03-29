@@ -47,4 +47,13 @@ if [ -f "$PLAYGROUND_PATH/package.json" ]; then
 fi
 
 echo "✅ Pull complete. Site is ready in: $PLAYGROUND_PATH"
-echo "💡 The Factory can now access this site via its internal 'sites' symlink."
+
+# 🔄 Git Integration: Auto-track the unparked site
+if [ -d "../y/werkplaats/.git" ]; then
+    echo "🏗️  Staging changes to Git..."
+    cd "../y/werkplaats" || exit
+    git add -A "$SITE_NAME"
+    git commit -m "unpark: $SITE_NAME from Vault"
+else
+    echo "💡 The Factory can now access this site via its internal 'sites' symlink."
+fi
